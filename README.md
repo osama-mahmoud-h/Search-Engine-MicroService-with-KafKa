@@ -1,47 +1,34 @@
-# Search engine 
-Search Engine with Spring Boot and Kafka
-This is a search engine built with Spring Boot and Kafka that allows you to search and retrieve data stored in Elasticsearch. This project consists of two microservices - one for inserting data into Elasticsearch, and the other for searching and retrieving data.
+# Search engine
+# Search Engine Built with Spring Boot and Kafka
 
-Inserting data into Elasticsearch
-The microservice responsible for inserting data into Elasticsearch is built with Spring Boot and Kafka. This microservice subscribes to a Kafka topic where it receives messages containing data about posts. Each post contains information such as text, video URL, image URL, likes count, comments count, author information (username, ID, password, image URL), etc.
+This search engine is a microservice-based system built with Spring Boot and Kafka that allows users to search for posts containing text, video URLs, and image URLs. The search engine saves posts along with information such as likes count, comments count, and author details like username, ID, password, and image URL.
 
-The microservice parses each message and inserts the data into Elasticsearch. The data is stored in a post index with fields such as text, video URL, image URL, likes count, comments count, author information, etc.
+## Functionality
 
-Searching and Retrieving Data
-The microservice responsible for searching and retrieving data is also built with Spring Boot and Kafka. This microservice provides fuzzy search capabilities for posts and also provides a suggestion list of words.
+The search engine provides the following functionality:
 
-To search for posts, the microservice queries Elasticsearch with a search term and retrieves matching posts. The microservice then returns the matching posts to the client.
+- **Fuzzy search**: Users can search for posts using fuzzy search, which helps to find relevant posts even if the search query contains errors or typos.
+- **Suggestion list**: The search engine also provides a suggestion list of words, which helps users to refine their search and find relevant posts more easily.
 
-To provide suggestion lists of words, the microservice uses Elasticsearch's suggest API. The microservice retrieves a list of suggested words based on the search term and returns this list to the client.
+## Architecture
 
-Getting Started
-To run this project, you will need to have the following installed:
+The search engine is built using a microservice architecture, which allows for greater scalability and flexibility. The system consists of multiple microservices, including a service responsible for inserting data into Elasticsearch. Kafka is used as a message broker to facilitate communication between microservices.
 
-Java 11 or later
-Apache Kafka
-Elasticsearch
-To run the project, follow these steps:
+## Getting Started
 
-Clone this repository to your local machine.
-Start Kafka and Elasticsearch services.
-Run the Kafka producer and Elasticsearch indexing microservice with the following command:
-ruby
-Copy code
-$ mvn spring-boot:run -P producer
-Run the search and retrieve microservice with the following command:
-ruby
-Copy code
-$ mvn spring-boot:run -P searcher
-Use a REST client such as Postman to test the API.
-API Endpoints
-POST /posts
-This endpoint is used to insert a new post into Elasticsearch. The request body should contain the post data in JSON format.
+To get started with the search engine, follow these steps:
 
-GET /posts/search
-This endpoint is used to search for posts in Elasticsearch. The request should contain a "q" parameter with the search term.
+1. Install Elasticsearch and Kafka.
+2. Clone the search engine repository.
+3. Configure the microservices and start the system.
+4. Start searching for posts!
 
-GET /posts/suggest
-This endpoint is used to get a suggestion list of words based on the search term. The request should contain a "q" parameter with the search term.
+For more detailed instructions, please refer to the documentation in the `docs` folder.
 
-Conclusion
-This search engine with Spring Boot and Kafka provides a robust and scalable solution for searching and retrieving data stored in Elasticsearch. By using Kafka for message queuing, we ensure that data is processed asynchronously and can be scaled independently. By using Elasticsearch for data storage and retrieval, we provide fast and efficient search capabilities.
+## Contributing
+
+Contributions to the search engine are welcome. Please submit a pull request with any changes or improvements you'd like to make.
+
+## License
+
+The search engine is licensed under the MIT License. See the `LICENSE` file for more information.
