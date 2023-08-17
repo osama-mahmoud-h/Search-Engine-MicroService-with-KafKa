@@ -1,0 +1,33 @@
+/* Style the search input field */
+#search-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+/* Style the search results container */
+#search-results {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the search result items */
+#search-results a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+/* Style the search result items on mouse-over */
+#search-results a:hover {
+  background-color: #f2f2f2;
+}
+

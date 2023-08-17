@@ -5,16 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class PostResponceDto {
-    private Long id;
+    private String id;
+    private Date timestamp;
     private String text;
-    private String image_url;
+    private String[] images_urls;
     private String vedio_url;
-    private Long likes;
+    private String file_url;
     private Long comments_count;
-    private UserResponceDto author;
+    private Object author;
+   // private byte myFeed;
+   // private Map<Byte,Long> feeds;
 }

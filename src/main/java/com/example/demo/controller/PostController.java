@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Post;
+import com.example.demo.payload.request.PostRequestDto;
+import com.example.demo.payload.response.PostResponceDto;
 import com.example.demo.service.PostSearchService;
 import com.example.demo.service.PostServiceWithRepo;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,12 @@ public class PostController {
     private final PostServiceWithRepo postServiceWithRepo;
     private final PostSearchService postSearchService;
 
-//    @PostMapping("/save")
-//    public ResponseEntity<Post>savePost(@RequestBody Post post){
-//        return ResponseEntity
-//                .ok()
-//                .body(postServiceWithRepo.save(post));
-//    }
+    @PostMapping("/save")
+    public ResponseEntity<Post>savePost(@RequestBody PostRequestDto postDto){
+        return ResponseEntity
+                .ok()
+                .body(postServiceWithRepo.save(postDto));
+    }
 
 //    @PostMapping("/save-all")
 //    public ResponseEntity<List<Post>>saveAllPosts(@RequestBody List<Post> posts){
@@ -32,10 +34,10 @@ public class PostController {
 //    }
 
     @GetMapping("/get/{postid}")
-    public ResponseEntity<Post> getPost(@PathVariable("postid") String postId){
+    public ResponseEntity<PostResponceDto> getPost(@PathVariable("postid") String postId){
         return ResponseEntity
                 .ok()
-                .body(postServiceWithRepo.findPostById(postId));
+                .body(postServiceWithRepo.getPost(postId));
     }
 
     @GetMapping("/search/{word}")
@@ -47,11 +49,19 @@ public class PostController {
     }
 
     @GetMapping("/get-suggestions/{word}")
-    public ResponseEntity<List<String>> getAllSuggestedSentences (@PathVariable("word") String word
+    public ResponseEntity<List<String>> getAllSuggestedSentences (
+            @PathVariable("word") String word
     ){
         return ResponseEntity
                 .ok()
                 .body(postSearchService.fetchSuggestions(word));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllPosts(){
+        return ResponseEntity
+               .ok()
+               .body(postServiceWithRepo.getAllPosts());
     }
 
 

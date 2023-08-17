@@ -1,9 +1,6 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
-import com.example.demo.model.Product;
-import com.example.demo.payload.ProductDto;
 import com.example.demo.service.PostSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,9 +57,10 @@ public class PostSearchServiceImp implements PostSearchService {
         return productMatches;
     }
 
-    public List<String> fetchSuggestions(final String searchWord) {
+    public List<String> fetchSuggestions(String searchWord) {
+        searchWord = searchWord.toLowerCase();
         QueryBuilder queryBuilder = QueryBuilders
-                .wildcardQuery("name", searchWord+"*");
+                .wildcardQuery("text", searchWord+"*");
 
         Query searchQuery = new NativeSearchQueryBuilder()
                 .withFilter(queryBuilder)
@@ -80,17 +78,6 @@ public class PostSearchServiceImp implements PostSearchService {
             suggestions.add(searchHit.getContent().getText());
         });
         return suggestions;
-    }
-
-    public List<IndexedObjectInformation> createPostIndexBulk(final List<Product> products) {
-
-        List<IndexQuery> queries = products.stream()
-                .map(product -> new IndexQueryBuilder().withId(product.getId().toString()).withObject(product).build())
-                .collect(Collectors.toList());
-
-
-        return elasticsearchOperations.bulkIndex(queries, IndexCoordinates.of(POST_INDEX));
-
     }
 
     public String createPostIndex(Post post) {
